@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinTrack - Pencatat Keuangan Pribadi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
+        }
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+        .input-error {
+            border-color: #EF4444;
+        }
+        .animated-bg {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-100">
+    <div id="auth-container" class="min-h-screen flex items-center justify-center px-4 py-12">
+        <div class="w-full max-w-md">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-extrabold text-gray-900">FinTrack</h1>
+                <p class="mt-2 text-gray-600">Kelola keuangan Anda dengan lebih mudah</p>
+            </div>
+            <div id="login-form" class="bg-white rounded-lg shadow-xl p-8 card-shadow transition-all">
+                <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Masuk ke Akun Anda</h2>
+                <form class="space-y-6">
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="email" required
+                            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition-all">
+                    </div>
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700">Kata Sandi</label>
+                        <input type="password" id="password" required
+                            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition-all">
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <input id="remember-me" name="remember-me" type="checkbox"
+                                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                            <label for="remember-me" class="ml-2 block text-sm text-gray-700">Ingat saya</label>
+                        </div>
+                        <div class="text-sm">
+                            <a href="#" class="font-medium text-blue-600 hover:text-blue-500">Lupa kata sandi?</a>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit"
+                            class="w-full gradient-bg text-white py-2 px-4 rounded-md hover:opacity-90 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Masuk
+                        </button>
+                    </div>
+                </form>
+                <div class="mt-6 text-center">
+                    <p class="text-sm text-gray-600">
+                        Belum punya akun?
+                        <a href="#" id="show-register" class="font-medium text-blue-600 hover:text-blue-500">Daftar di sini</a>
+                    </p>
+                </div>
+            </div>
+
+            <div id="register-form" class="hidden bg-white rounded-lg shadow-xl p-8 card-shadow transition-all">
+                <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Buat Akun Baru</h2>
+                <form class="space-y-6">
+                    <div>
+                        <label for="reg-name" class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
+                        <input type="text" id="reg-name" required
+                            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition-all">
+                    </div>
+                    <div>
+                        <label for="reg-email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="reg-email" required
+                            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition-all">
+                    </div>
+                    <div>
+                        <label for="reg-password" class="block text-sm font-medium text-gray-700">Kata Sandi</label>
+                        <input type="password" id="reg-password" required
+                            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition-all">
+                    </div>
+                    <div>
+                        <label for="reg-confirm-password" class="block text-sm font-medium text-gray-700">Konfirmasi Kata Sandi</label>
+                        <input type="password" id="reg-confirm-password" required
+                            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition-all">
+                    </div>
+                    <div>
+                        <button type="submit"
+                            class="w-full gradient-bg text-white py-2 px-4 rounded-md hover:opacity-90 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Daftar
+                        </button>
+                    </div>
+                </form>
+                <div class="mt-6 text-center">
+                    <p class="text-sm text-gray-600">
+                        Sudah punya akun?
+                        <a href="#" id="show-login" class="font-medium text-blue-600 hover:text-blue-500">Masuk di sini</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="app-container" class="hidden min-h-screen bg-gray-100">
+        <header class="gradient-bg text-white shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center py-6">
+                    <div class="flex items-center">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3e40a03c-3552-4ef4-81a5-935cb7aa1dfe.png" alt="Logo FinTrack" class="h-10 w-10 rounded-full">
+                        <h1 class="ml-3 text-xl font-bold">FinTrack</h1>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button id="add-transaction" class="flex items-center justify-center px-4 py-2 bg-white text-blue-600 rounded-md hover:bg-gray-100 transition-all">
+                            <span>Tambah Transaksi</span>
+                        </button>
+                        <div class="relative">
+                            <button id="user-menu-button" class="flex items-center space-x-2 focus:outline-none">
+                                <span class="text-white font-medium">User</span>
+                                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2947dc14-f5df-4f50-9de0-0af563b2dcf4.png" alt="Profil pengguna" class="h-8 w-8 rounded-full">
+                            </button>
+                            <div id="user-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profil</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Pengaturan</a>
+                                <a href="#" id="logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Keluar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="md:col-span-1">
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h2 class="text-lg font-medium text-gray-900 mb-4">Saldo Saat Ini</h2>
+                        <div class="text-3xl font-bold text-blue-600 mb-6">Rp 0</div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <h3 class="text-sm font-medium text-gray-500">Pemasukan</h3>
+                                <div class="text-lg font-medium text-green-600">Rp 0</div>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-medium text-gray-500">Pengeluaran</h3>
+                                <div class="text-lg font-medium text-red-600">Rp 0</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-sm p-6 mt-6">
+                        <h2 class="text-lg font-medium text-gray-900 mb-4">Kategori Pengeluaran</h2>
+                        <div class="space-y-3">
+                            <div class="flex flex-col items-center justify-center py-8 text-gray-500">
+                                <p>Belum ada data pengeluaran</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-3">
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-lg font-medium text-gray-900">Riwayat Transaksi</h2>
+                            <div class="flex space-x-2">
+                                <select id="filter-month" class="border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                    <option>Bulan Ini</option>
+                                    <option>April 2023</option>
+                                    <option>Maret 2023</option>
+                                </select>
+                                <select id="filter-category" class="border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                    <option>Semua Kategori</option>
+                                    <option>Makanan & Minuman</option>
+                                    <option>Transportasi</option>
+                                    <option>Hiburan</option>
+                                    <option>Belanja</option>
+                                    <option>Lainnya</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kategori</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Keterangan</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jumlah</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="transaction-list" class="bg-white divide-y divide-gray-200">
+                                    <tr>
+                                        <td colspan="5" class="px-6 py-12 text-center text-gray-500">
+                                            Belum ada transaksi tercatat
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Tambah Transaksi -->
+    <div id="transaction-modal" class="hidden fixed inset-0 overflow-y-auto z-50">
+        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Tambah Transaksi</h3>
+                    <form class="space-y-4">
+                        <div>
+                            <label for="transaction-type" class="block text-sm font-medium text-gray-700">Jenis Transaksi</label>
+                            <select id="transaction-type" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                                <option value="income">Pemasukan</option>
+                                <option value="expense">Pengeluaran</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="transaction-category" class="block text-sm font-medium text-gray-700">Kategori</label>
+                            <select id="transaction-category" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                                <option value="food">Makanan & Minuman</option>
+                                <option value="transport">Transportasi</option>
+                                <option value="entertainment">Hiburan</option>
+                                <option value="shopping">Belanja</option>
+                                <option value="other">Lainnya</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="transaction-amount" class="block text-sm font-medium text-gray-700">Jumlah</label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span class="text-gray-500 sm:text-sm">Rp</span>
+                                </div>
+                                <input type="text" id="transaction-amount" class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="transaction-date" class="block text-sm font-medium text-gray-700">Tanggal</label>
+                            <input type="date" id="transaction-date" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                        </div>
+                        <div>
+                            <label for="transaction-description" class="block text-sm font-medium text-gray-700">Keterangan</label>
+                            <textarea id="transaction-description" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 gradient-bg text-base font-medium text-white hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                        Simpan
+                    </button>
+                    <button type="button" id="cancel-transaction" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        Batal
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulasi data pengguna untuk demo
+        let isLoggedIn = false;
+        let users = [];
+
+        // DOM Elements
+        const authContainer = document.getElementById('auth-container');
+        const appContainer = document.getElementById('app-container');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const showRegister = document.getElementById('show-register');
+        const showLogin = document.getElementById('show-login');
+        const logoutBtn = document.getElementById('logout');
+        const userMenuButton = document.getElementById('user-menu-button');
+        const userMenu = document.getElementById('user-menu');
+        const addTransactionBtn = document.getElementById('add-transaction');
+        const transactionModal = document.getElementById('transaction-modal');
+        const cancelTransactionBtn = document.getElementById('cancel-transaction');
+
+        // Event Listeners
+        showRegister.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginForm.classList.add('hidden');
+            registerForm.classList.remove('hidden');
+        });
+
+        showLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerForm.classList.add('hidden');
+            loginForm.classList.remove('hidden');
+        });
+
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            isLoggedIn = false;
+            authContainer.classList.remove('hidden');
+            appContainer.classList.add('hidden');
+        });
+
+        userMenuButton.addEventListener('click', () => {
+            userMenu.classList.toggle('hidden');
+        });
+
+        document.addEventListener('mouseup', (e) => {
+            if (!userMenu.contains(e.target) && e.target !== userMenuButton) {
+                userMenu.classList.add('hidden');
+            }
+        });
+
+        addTransactionBtn.addEventListener('click', () => {
+            transactionModal.classList.remove('hidden');
+        });
+
+        cancelTransactionBtn.addEventListener('click', () => {
+            transactionModal.classList.add('hidden');
+        });
+
+        // Login Form Submission
+        loginForm.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = loginForm.querySelector('#email').value;
+            const password = loginForm.querySelector('#password').value;
+            
+            // Validasi sederhana
+            if (!email || !password) {
+                alert('Email dan password harus diisi');
+                return;
+            }
+            
+            // Cek pengguna
+            const user = users.find(u => u.email === email && u.password === password);
+            if (user) {
+                isLoggedIn = true;
+                authContainer.classList.add('hidden');
+                appContainer.classList.remove('hidden');
+                // Perbarui nama pengguna di UI
+                document.querySelector('#user-menu-button span').textContent = user.name;
+            } else {
+                alert('Email atau password salah');
+            }
+        });
+
+        // Register Form Submission
+        registerForm.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = registerForm.querySelector('#reg-name').value;
+            const email = registerForm.querySelector('#reg-email').value;
+            const password = registerForm.querySelector('#reg-password').value;
+            const confirmPassword = registerForm.querySelector('#reg-confirm-password').value;
+            
+            // Validasi
+            if (!name || !email || !password || !confirmPassword) {
+                alert('Semua kolom harus diisi');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                alert('Konfirmasi password tidak cocok');
+                return;
+            }
+            
+            if (users.some(u => u.email === email)) {
+                alert('Email sudah terdaftar');
+                return;
+            }
+            
+            // Tambahkan pengguna baru
+            users.push({ name, email, password });
+            alert('Pendaftaran berhasil! Silakan login.');
+            
+            // Kembali ke form login
+            registerForm.classList.add('hidden');
+            loginForm.classList.remove('hidden');
+            
+            // Kosongkan form
+            registerForm.querySelector('form').reset();
+        });
+
+        // Modal untuk tambah transaksi
+        transactionModal.addEventListener('click', (e) => {
+            if (e.target === transactionModal) {
+                transactionModal.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
